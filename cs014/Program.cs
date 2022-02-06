@@ -78,12 +78,13 @@ class Animal
 class Cat : Animal
 {
     public string Food;
-    public Cat(string s) : base(s)
+    public Cat(string value) : base(value)
     {
         this.Leg = 4;
         this.Food = "Mouse";
+        this.Eat();
         this.Showleg();
-        Console.WriteLine($"khoi tao lop cat {s}");
+        Console.WriteLine($"khoi tao lop cat {value}");
     }
     public void Eat()
     {
@@ -99,6 +100,10 @@ class Cat : Animal
         Showleg();
     }
 }
+class A { };
+class B : A { };
+class D :B { };
+// A->B-> D
 class Program
 {
     #region
@@ -118,9 +123,13 @@ class Program
     #endregion
     static void Main(string[] args)
     {
-        Cat cat = new Cat("s");
+        Cat cat = new Cat("dadsa");
 
+        A a;
+        B b = new B();
+        D d = new D();
 
+        
 
 
 
