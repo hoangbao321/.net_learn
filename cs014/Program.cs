@@ -70,7 +70,7 @@ class Animal
     }
     public int Leg { get; set; }
     public float Weight { get; set; }
-    public void Showleg ()
+    public void Showleg()
     {
         Console.WriteLine($"so chan: {Leg}");
     }
@@ -85,7 +85,6 @@ class Cat : Animal
         this.Showleg();
         Console.WriteLine($"khoi tao lop cat {s}");
     }
-
     public void Eat()
     {
         Console.WriteLine($"thuc an loai meo: {Food}");
@@ -119,8 +118,8 @@ class Program
     #endregion
     static void Main(string[] args)
     {
-        Cat cat = new Cat();
-        
+        Cat cat = new Cat("s");
+
 
 
 
