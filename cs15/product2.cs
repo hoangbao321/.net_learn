@@ -15,5 +15,11 @@ namespace cs15
         {
             Console.WriteLine(this.name);
         }
+        public nhaxuong from;
+        public class nhaxuong
+        {
+            public string nha_xuong { get; set; }
+        }
+        
     }
 }

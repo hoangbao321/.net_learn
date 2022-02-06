@@ -16,6 +16,9 @@ namespace cs15
             sp.manufactory = new product.Manufactory();
             sp.manufactory.name = "ccc";
             Console.WriteLine(sp.manufactory.name);
+            sp.from = new product.nhaxuong();
+            sp.from.nha_xuong = "tphcm";
+            Console.WriteLine(sp.from.nha_xuong);
         }
     }
 }
