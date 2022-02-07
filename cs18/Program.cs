@@ -19,6 +19,8 @@ namespace cs18
             {
                 int _age = (int)age;
             }
+            Abc abc = null;
+            abc?.Xinchao();
         }
     }
 }
