@@ -170,15 +170,18 @@ namespace cs26
 
             for (int i = 0; i < products.Keys.Count; i++)
             {
-                var sp = products.Keys[i]; // duyệt sản phẩm qua key
-                Console.WriteLine();
+                var sp = products[ products.Keys[i] ] ; // duyệt sản phẩm qua key
+                Console.WriteLine(sp.Name );
             }
 
             for (int i = 0; i < products.Values.Count; i++)
             {
                 var sp = products.Values[i]; // duyệt sản phẩm qua từng sản phẩm
-
+                
             }
+            products.Remove("sp3");// remove = key
+            products.RemoveAt(0);
+
 
             List<Sanpham> ds_sp = new List<Sanpham>()
             {
@@ -194,6 +197,7 @@ namespace cs26
                if (p1.Price > p2.Price) return 1;
                return -1;
             });
+
             foreach (var item in ds_sp)
             {
                 Console.WriteLine(item.Name + " " + item.Price);
