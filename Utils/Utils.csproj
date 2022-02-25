@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <PackageId>XTL.Utils</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Bao</Authors>
+  </PropertyGroup>
+
+</Project>
