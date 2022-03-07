@@ -7,64 +7,141 @@ namespace cs20
     {
         // delegate -biến kiểu tham chiếu được đến phương thức
         // gán được các phương thức
+        static void Xinchao(string s) => Console.WriteLine($"xin chao {s}");
+        static int tong(int a, int b) => a + b;
+
+        static void tong_delegate_thamso(int a, int b, showlog log)
+        {
+            int kq = a + b;
+            log?.Invoke($"msg: {kq}");
+        }
+        // có khai báo
+        public delegate void showlog(string msg);
+        static void Xinchao_cokhaibao(string s) => Console.WriteLine($"xin chao {s}");
+        class Student : IDisposable
+        {
+            public string name;
+            public Student(string name)
+            {
+                this.name = name;
+                Console.WriteLine($"khoi tao: {name}");
+            }
+            public void thongbao() => Console.WriteLine("thong bao " + name);
+            public void Dispose()
+            {
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("Huy " + name);
+                Console.ResetColor();
+            }
+            //~Student()
+            //{
+            //    Console.ForegroundColor = ConsoleColor.Red;
+            //    Console.WriteLine("Huy " +name);
+            //    Console.ResetColor();
+            //}
+        }
+        static void Test()
+        {
+            using Student std = new Student("Sinh vien a");
+            Console.WriteLine("1");
+            Console.WriteLine("2");
+            Console.WriteLine("3");
+        }
         public delegate int Tinh(int a, int b);
-        static void info(string s)
+        static int tinh_tong(int a, int b) => a + b;
+        public static void log_paramethes(string s, Showlog g)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"{s}");
-            Console.ResetColor();
+            int kq = 100 + 100;
+            g?.Invoke($"{s} {kq}");
         }
-        static void Warning(string s)
+
+        class Dulieunhapso : EventArgs
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"{s}");
-            Console.ResetColor();
+            public int dulieunhap { get; set; }
+            public Dulieunhapso(int _dulieunhap)
+            {
+                dulieunhap = _dulieunhap;
+            }
         }
-        static void Warning(string s, int a)
+        // publisher đăng kí nhận sự kiện
+        class User
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"{s}+{a}");
-            Console.ResetColor();
+            public event EventHandler sukiennhapso;
+            public void Input()
+            {
+                Console.WriteLine("Xin mời thi chu nhap so");
+                int a = int.Parse(Console.ReadLine());
+                // là nơi phát đi sự kiện này 
+                sukiennhapso.Invoke(this, new Dulieunhapso(a));
+            }
         }
-        static int Tich(int a, int b) => a * b;
-        static void Tich_delegate(int a, int b, Showlog log) 
+        // đăng kí sự kiện nhập số 
+        class TinhCan
         {
-            int kq = a * b;
-            log?.Invoke($"kq tich delegate: {kq}");
+            public void Sub(User user)
+            {
+                user.sukiennhapso += User_sukiennhapso;
+            }
+            // event handler thì ( object sender , EventArg e)
+            public void User_sukiennhapso(object sender, EventArgs e)
+            {
+                Dulieunhapso so = (Dulieunhapso)e;
+                int a = so.dulieunhap;
+                Console.WriteLine(a);
+            }
         }
         static void Main(string[] args)
         {
-            Tinh t;
-            t = Tich;
-            int ket_qua = t.Invoke(5, 6);
-            Console.WriteLine(ket_qua);
 
-            Showlog log = null; // += tích hợp 2 cái khỏi khai báo lại 
-            log += info;
-            log += Warning;
-            log += info;
-            log?.Invoke("tích hợp");// gọi các method được gán với log , ? ~ if (log != null)
+            Action<string, string> thongbao = (s, y) => Console.WriteLine(s + y);
 
-            // Delegate kiểu action , func 
-            // không cần tạo public delegate int ... , hay public delegate void ...
-            Action action; //~ delegate void kieu()
-            Action<string, int> action1; //~ delegate void kieu(string, int)
-            Action<string> action2;// ~ delegate void kieu(string s)
-            action2 = Warning;
-            action2 += Warning;
-            action2 += info;
-            action2.Invoke("thông báo từ action");
-            action1 = Warning;
-            action1.Invoke("test string int", 2);
+            log_paramethes("ditcumonudql1", null);
+            log_paramethes("ditcumonudql1", Xinchao);
 
-            Func<string> f1;
-            Func<int,int,int> f2;
-            f2 = Tich;
-            int func = f2(5, 6);
+            Tinh tinh_1 = null;
+            tinh_1 += tong;
+            var kq_1 = tinh_1(5, 6);
+            Console.WriteLine("kq : " + kq_1);
 
-            Tich_delegate(5, 6, null);
-            Tich_delegate(7, 8, info);
-            Tich_delegate(7, 9, Warning);
+            Action<string, int> f2; // ~delegate void Kieu(string, int);
+            Action<string> f1; // ~delegate void Kieu (string)
+            f1 = Xinchao;
+            f1.Invoke("bảo");
+
+            Showlog log = null;
+            log = Xinchao_cokhaibao;
+            log.Invoke("bảo có khai báo");
+
+            Func<int, int, int> tinh; // ~delegate int Kieu( int , int ) 
+            tinh = tong;
+            int kq = tinh.Invoke(5, 6);
+            Console.WriteLine(kq);
+
+            Func<string, int, double> kieu; // ~delegate double Kieu (string,int) 
+
+            tong_delegate_thamso(5, 6, Xinchao);
+
+            //for (int i = 0; i < 100000; i++)
+            //{
+            //    Student std = new Student($"sinh vien {i}");
+            //    std = null;
+            //}
+
+            Test(); // Huy boi disposle khi ra khỏi hàm
+
+            using Student std = new Student("Sinh vien a");
+            std.thongbao();
+
+            Console.WriteLine("helloooooooo");
+            //thong bao Sinh vien a
+            //helloooooooo
+            //Huy Sinh vien a
+
+            tong_delegate_thamso(5, 6, null);
+
         }
     }
 }
+
+
+
