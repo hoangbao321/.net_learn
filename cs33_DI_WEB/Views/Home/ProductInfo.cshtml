@@ -1,0 +1,21 @@
+﻿@model Product
+
+
+<h1>Thong tin san pham </h1>
+<h1>Tim theo ID</h1>
+<h2>18/3/2022</h2>
+
+@if (Model == null)
+{
+    <div class="alert alert-danger">Khong tim thay san pham</div>
+
+}
+else
+{
+    <div class="card">
+        <div class="card-body">
+            <p>Ten san pham @Model.Name </p>
+            <p>ID: @Model.ID </p>
+        </div>
+    </div>
+}
