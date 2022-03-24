@@ -134,8 +134,11 @@ namespace cs33_DI
     {
         public string data1 { get; set; }
         public int data2 { get; set; }
-        public Service(IOptions<MyServiceOption> option)
+        // Tham số khởi tạo là IOptions, các tham số khởi tạo khác nếu có khai báo như bình thường
+        // Myserviceoption khong phải là dependency mà nó chứa dữ liệu để tạo ra cái Myservice
+        public Service( IOptions<MyServiceOption> option)
         {
+            // Đọc được MyServiceOptions từ IOptions
             var _option = option.Value;
             data1 = _option.data1;
             data2 = _option.data2;
@@ -229,6 +232,9 @@ namespace cs33_DI
             var provider = service.BuildServiceProvider();
             Service a = provider.GetService<Service>();
             a.PrintInfo();
+
+
+
         }
     }
 }
