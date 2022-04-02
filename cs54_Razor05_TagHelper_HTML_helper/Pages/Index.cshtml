@@ -1,0 +1,30 @@
+﻿@page
+@model IndexModel
+@addTagHelper * , cs54_Razor05_TagHelper_HTML_helper
+@{
+    ViewData["Title"] = "Home page";
+    var productlist = new List<string>()
+    {
+        "sp 1",
+        "sp 2",
+        "sp 3"
+    };
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<a asp-page="ViewProduct" asp-route-maso="3">Xem sp thu 3 </a>
+
+<form>
+    <!label asp-for ="username"></!label>
+    <input asp-for="username"/>
+    <hr />
+    @Html.Label("username")
+    @Html.TextBox("username")
+</form>
+
+<mylist list-title="Danh sách sản phẩm" list-items="@productlist">
+
+</mylist>

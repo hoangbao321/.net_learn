@@ -1,0 +1,7 @@
+﻿
+@*@page "/sanpham/{so:int?}"*@
+@page "/sanpham/{maso?}"
+@{
+    var maso = this.Request.RouteValues["maso"] ?? 1000;
+}
+<h1>san pham @maso</h1>
