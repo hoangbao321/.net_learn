@@ -1,0 +1,22 @@
+﻿@{
+    Layout = "_MasterLayout";
+}
+<div class="row">
+    <div class="col-3 bg-secondary">
+        MenuTrai
+    </div>
+    <div class="col-9">
+        @RenderBody()
+    </div>
+</div>
+@section aloalo{
+    @await RenderSectionAsync("aloalo", required: false)
+}
+
+@section NoidungFooter{
+    @await RenderSectionAsync("NoidungFooter", required: false)
+}
+@section Post4_section{
+    @await RenderSectionAsync("Post4_section", required: true)
+    <p>đây là rendersection của post 4 của _postLayout</p>
+}
