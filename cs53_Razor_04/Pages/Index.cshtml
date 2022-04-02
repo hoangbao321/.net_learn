@@ -1,0 +1,83 @@
+﻿@page
+@* namespace để dùng product *@
+@using NLHBao
+@model IndexModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Trang Index";
+    ViewData["Titlemessage"] = "San pham moi";
+    ViewData["content"] = "Ban dang xem cac san pham moi";
+
+    void Hello()
+    {
+        <p class="bg-danger p-lg-0">Hello</p>
+    }
+    Hello();
+}
+@*
+    -Partial View : la file .cshtml không có @page
+        -Chia nhỏ page thành các file nhỏ
+        -Sử dụng lại các thành phần tránh trùng lập code
+
+    -Component ~ Partial view (view con chèn vào file cshtml)
+                sử dụng D Inject , để inject những cái dịch vụ hệ thống vào đối tượng COMPONENT
+                Để COMPONENT sử dụng dịch vụ đó, COMPONET coi như các trang mini Razor Page
+*@
+
+<form method="Post">
+    <label>Yeu cau nhap ten</label>
+    <input name="username"/>
+    <input type="submit" name="Gui" />
+</form>
+
+
+@* thực thi chèn component nào vào *@
+@await Component.InvokeAsync("ProductBox")
+
+@*Partial View*@
+@*@{ await Html.RenderPartialAsync("_Message");}*@
+<partial name="_Message" />
+
+<div class="row bg-info">
+    @{
+        var product = new Product() { Name = "Iphone X", Description = "dien thoai iphone 10", Price = 1200200 };
+        var product1 = new Product() { Name = "Samsung X10", Description = "dien thoai Samsung", Price = 500 };
+        var product2 = new Product() { Name = "Hweiwa", Description = "dien thoai Huwai", Price = 700 };
+        <div class="col">
+            <partial name="_ProductItem" model="product" />
+        </div>
+        <div class="col">
+            @await Html.PartialAsync("_ProductItem", product2)
+        </div>
+        <div class="col">
+            @{
+                await Html.RenderPartialAsync("_ProductItem", product1);
+            }
+        </div>
+    }
+</div>
+
+
+
+<div class="row bg-secondary my-4">
+    @{
+        var ds_product = new List<Product>()
+        {
+            new Product() { Name = "Iphone X", Description = "dien thoai iphone 10", Price = 1200200 },
+            new Product() { Name = "Samsung X10", Description = "dien thoai Samsung", Price = 500 },
+            new Product() { Name = "Hweiwa", Description = "dien thoai Huwai", Price = 700 },
+            new Product() { Name = "Hweiwa", Description = "dien thoai Huwai", Price = 700 },
+        };
+        foreach (var sp in ds_product)
+        {
+            <div class="col">
+                <partial name="_ProductItem" model="sp" />
+            </div>
+        }
+    }
+</div>
+
+
+
+
+

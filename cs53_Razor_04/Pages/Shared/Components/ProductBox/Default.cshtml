@@ -1,0 +1,9 @@
+﻿
+
+@using NLHBao
+@model List<Product>
+<h4>Danh sach sản phẩm</h4>
+@foreach(var sp in Model)
+    {
+                <li>ten :@sp.Name (gia: @sp.Price)</li>
+    }
