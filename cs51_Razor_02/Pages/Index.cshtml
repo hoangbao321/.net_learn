@@ -1,0 +1,86 @@
+﻿@*
+    -@bieuthuc @(bieuthuc) :-> HTML()
+    -@HTML.Raw(string): phiên dịch HTML
+    -cấu trúc điều khiển @if , @foreach, @for
+    -@function{
+    memeber : property, method }
+*@
+
+
+@page "/trang-chu"
+
+@namespace xyz 
+
+@using cs51_Razor_02.Pages
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page index";
+    var xin_chao = @"<div class=""alert alert-danger"">Xin chào các bạn</div>";
+}
+
+<h1 class="display-4 text-center text-danger">Cú pháp Razor @tittle</h1>
+<p>@Model.Abc</p>
+<ul>
+
+    <li>@(5 + 6)</li>
+    <li>@("<h1>Xin chao cac ban</h1>")</li>
+    <li>@("<div class='alert alert-danger'><Xin chào các bạn</div>")</li>
+    <li><div class="alert alert-danger">Xin chào các bạn</div></li>
+    <li>Raw : @Html.Raw(xin_chao)</li>
+
+</ul>
+
+@functions{
+    string tittle { get; set; } = "nglehoangbao";
+
+}
+@{
+    tittle = "nguyen le hoang bao";
+    var loichao = "Xin chao";
+    var Age = 15;
+    void Welcome(string name)
+    {
+        var msg = "loi chao" + " " + name;
+        <h2 style="color:blue">@msg</h2>;
+    }
+    void Hello()
+    {
+        <h1>Hello mọi người</h1>
+    }
+    int Tinhtong(int n)
+    {
+        return 5 + n;
+    }
+
+    Welcome("nglehoangbao dsadada");
+
+    Hello();
+
+    <h3>@loichao - @Age</h3>
+
+    <li>tinh tong : @Tinhtong(5)</li>
+
+    string[] cacsanpham = new string[] { "iphone", "ipad" };
+    foreach (var item in cacsanpham)
+    {
+        @: [@item]
+    }
+}
+
+@if (Age > 18)
+{
+    <p class="alert alert-danger">Ban @Age, Duoc quyen truy cap</p>
+}
+else
+{
+    <p class="alert alert-danger">Ban @Age, khong duoc quyen truy cap </p>
+}
+@switch (Age)
+{
+    case 15:
+        <p class="alert alert-danger">Ban @Age, khong duoc quyen truy cap </p>
+        break;
+    default:
+        <p class="alert alert-danger">Ban @Age, khong duoc quyen truy cap</p>
+        break;
+}
