@@ -1,0 +1,46 @@
+﻿
+@page "/ProductPage/{id:int?}"
+
+@model cs55_Razor_06.Pages.ProductPageModel
+@{
+    var product = Model.product;
+    var products = Model.productServices.AllProduct();
+
+}
+<p>@ViewData["content"] </p>
+<p>@ViewData["title"]</p>
+
+@if (product != null)
+{
+    <form method="Post" asp-page="ProductPage" asp-route-id="@product.id" asp-page-handler="DelSp">
+        <h2>Thong tin san pham</h2>
+
+        <p>Id sp: @product.id, ten sp: @product.name</p>
+
+        <a asp-page="ProductPage" asp-route-id="">Danh sach san pham</a>
+
+        @*// localhost/3?handler=DelSp*@
+        <input type="submit" value="Xóa" />
+    </form>
+}
+else
+{
+    <h4>Tong so san pham: @products.Count</h4>
+    <ul>
+
+        @foreach (var sp in products)
+        {
+            <li>
+                <a asp-page="ProductPage" asp-route-id="@sp.id">Xem thong tin sp @sp.id</a>
+            </li>
+        }
+    </ul>
+    <hr />
+
+    <p>
+        <a class="btn btn-primary" asp-page="ProductPage" asp-page-handler="LastProduct1">San pham cuoi</a>
+        <a class="btn bg-danger" asp-page="ProductPage" asp-page-handler="RemoveAll">Remove Toàn bộ sản phẩm</a>
+        <a class="btn bg-secondary" asp-page="ProductPage" asp-page-handler="AddSP">Thêm sản phẩm</a>
+    </p>
+
+}

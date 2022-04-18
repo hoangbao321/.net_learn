@@ -1,0 +1,50 @@
+﻿
+@page "/Contact.html"
+@model cs55_Razor_06.Pages.ContactModel
+
+@{
+    ViewData["title"] = "Lien He";
+}
+
+<h1 class="display-4">Trang lien he</h1>
+<p class="lead">Dien cac thông tin liên hệ</p>
+<hr />
+
+<form method="Post" asp-page="Contact">
+
+    <div class="mb-3">
+
+        <label asp-for="@Model.usercontact.userID"></label>
+        <input class="form-control" asp-for="@Model.usercontact.userID" />
+        <span class="text-danger" asp-validation-for="@Model.usercontact.userID"></span>
+    </div>
+
+
+    <div class="mb-3">
+        <label asp-for="@Model.usercontact.Email"></label>
+        <input class="form-control" asp-for="@Model.usercontact.Email" />
+        <span class="text-danger" asp-validation-for="@Model.usercontact.Email"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="@Model.usercontact.Username"></label>
+        <input class="form-control" asp-for="@Model.usercontact.Username" /><br />
+        <span class="text-danger" asp-validation-for="@Model.usercontact.Username"></span>
+    </div>
+    <button class="btn btn-danger" type="submit">Gửi</button>
+
+</form>
+
+<div class="alert alert-danger">
+    <p>Thong tin user</p>
+    <ul>
+        <li>UserID:@Model.usercontact.userID</li>
+        <li>Email: @Model.usercontact.Email</li>
+        <li>Username: @Model.usercontact.Username</li>
+    </ul>
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}
